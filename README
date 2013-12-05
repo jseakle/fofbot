@@ -1,0 +1,72 @@
+FoFbot by jseakle
+
+This is a Twitter bot that retweets friends of your friends that you
+don't already follow.
+
+I wrote it because I was inspired by @tinysubversions' many Twitter
+bots to try one of my own, and it was the first toy idea I thought of
+to learn the API with. The original is running at @fofbot.
+
+It turned out to be really cool! It has found me a good handful of new
+people to follow, and many, many cool links and conversations I never
+would have seen otherwise.
+
+It should be noted that following one is probably not a good idea if
+you already spend too much time on Twitter.
+
+INSTALLATION
+
+This is a pretty straightforward ruby script that I run from a
+cronjob. Any other kind of scheduler is obviously fine too, though if
+you turn on any of the error reporting, you might want to do something
+other than puts it to STDOUT if your scheduler doesn't mail that to
+you like cron does.
+
+Steps:
+
+1. Install the 'twitter' ruby gem from https://github.com/sferik/twitter
+
+2. Make a new Twitter account for your bot. This requires a new email
+account.
+
+3. Obtain your API credentials from dev.twitter.com by logging in and
+clicking "My Applications" and plug them in to the strings at the top
+of the script.
+
+4. Obtain your bot's and your own twitter ids,
+http://gettwitterid.com/ is a fine way to do that. You could also use
+the gem. Plug them in to the indicated places in the script (your
+bot's appears twice).
+
+5. Uncomment any of the error reporting messages that you desire.
+
+6. Set up a cron job or similar to run the script. Mine looks like:
+
+    */30 * * * * ruby -W0 /home/jake/fofbot/fofbot.rb
+
+which makes it run every half hour. Depending on how many people you
+follow, and how many people they follow, it's conceivable that you
+might run into the Twitter rate limit if you run this too frequently.
+
+ISSUES
+
+There are lots of dumb things about this script, because I hacked it
+out quickly for myself. Feel free to send me pull requests, or even
+just nag me for changes that would actually matter to you. Things that
+stand out:
+
+* All the user-specific data should be pulled out to a separate file
+  so that a runnable script can be checked into this repo. If you plan
+  to pull ever again, you should probably run an untracked copy to
+  avoid this.
+
+* The random choice of tweet should be done without replacement.
+
+* All the numbers of retries are based on "empirical evidence", ie.,
+  completely arbitrary.
+
+Have fun, and let me know if you actually end up using this/doing
+anything else cool with it!
+
+
+
